@@ -1,0 +1,53 @@
+function out_FOPTD_system = two_point_method(recorded_data,steady_state_val,p_1,p_2)
+%TWO_POINT_METHOD Using two point on the step response curve, models the
+%system as a FOPTD system.
+%   Based on the selected percetages, the time which the values occurs
+%   should satisfy the equation: -ln(1-percentage)T +L. Based on this, two
+%   equtions are created, and a solution to the unknown L and T are found.
+
+
+
+%% Handles Paths
+% Get current file path
+
+file_name = matlab.desktop.editor.getActiveFilename;
+file_path_arr = strsplit(file_name,filesep);
+
+%% Get project folder
+% Dynamically obtain process modelling folder
+project_folder = '';
+for i = 2:length(file_path_arr)-4
+    project_folder = strcat(project_folder,filesep);
+    project_folder = strcat(project_folder,file_path_arr(i));
+    
+    
+end
+project_folder = project_folder{1}
+%% Add tools folder
+tools_folder = strcat(project_folder,filesep,'Tools')
+addpath(tools_folder);
+
+
+time = recorded_data.time;
+resp = recorded_data.data;
+chosen_percentages = [p_1,p_2];
+actual_percentages = [];
+time_samples = [];
+coeff = [];
+
+for i = [1 2]
+    p = chosen_percentages(i);
+    val_diff = abs(resp-p*steady_state_val);
+    index = find(val_diff == min(val_diff));
+    
+    actual_percentage(i) = resp(index(1))/steady_state_val;
+    time_samples(i)= time(index(1));
+    coeff(i) = -1*log(1-actual_percentage(i));
+end
+
+K = steady_state_val;
+tau = (time_samples(1) - time_samples(2))/(coeff(1)-coeff(2));
+L = time_samples(1)-coeff(1)*out_FOPTD_system.tau;
+
+
+out_FOPTD_system = FOPTD_system()

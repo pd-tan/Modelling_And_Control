@@ -6,8 +6,8 @@ resp = recorded_data.data;
 y_temp = (steady_state_val - resp)/steady_state_val  ;
 y = log(y_temp);
 
-max(time)
-coefficients = polyfit(time, y, 1)
+max(time);
+coefficients = polyfit(time, y, 1);
 xFit = linspace(min(time), max(time), 1000);
 yFit = polyval(coefficients , xFit);
 
