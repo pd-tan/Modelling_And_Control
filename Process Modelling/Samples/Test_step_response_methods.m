@@ -26,17 +26,21 @@ step_response_folder = strcat(project_folder,filesep,'Process Modelling',filesep
 addpath(step_response_folder)
 
 
+%% Add tools folder
+
+tools_folder = strcat(project_folder,filesep,'Tools')
+addpath(tools_folder)
 
 %% Create sample FOPTD system
 % Define system as TODO: Add equation into documentation
 % 
+sample_system = FOPTD_system(2,3,1)
 
-sample_system = tf([2],[3 1],"InputDelay",1)
 
 
 %% Get step response of sample system
 
-[sample_step.data,sample_step.time] = step(sample_system);
+[sample_step.data,sample_step.time] = step(sample_system.tf);
 plot(sample_step.time,sample_step.data)
 % TODO: Add title and scale
 
