@@ -31,6 +31,17 @@ addpath(step_response_folder)
 tools_folder = strcat(project_folder,filesep,'Tools')
 addpath(tools_folder)
 
+
+%% Add tools folder
+
+model_simpliflication_folder = strcat(project_folder,filesep,'Process Simplification')
+addpath(model_simpliflication_folder)
+
+
+%% Higher Order System
+
+
+
 %% Create sample FOPTD system
 % Define system as TODO: Add equation into documentation
 % 

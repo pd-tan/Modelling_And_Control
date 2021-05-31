@@ -35,11 +35,6 @@ classdef simple_system
                 
             end
             project_folder = project_folder{1}
-            
-            process_simplification_folder = strcat(project_folder,filesep,'Process Simplification')
-            addpath(process_simplification_folder)
-            
-            skogestads_FOPTD(obj.tf)
             outputArg = obj.Property1 + inputArg;
         end
     end

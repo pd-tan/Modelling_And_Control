@@ -1,6 +1,9 @@
-function params = FOPTD_Skogestad(HO_tf)
+function out_FOPTD = FOPTD_Skogestad(HO_tf)
 %FOPTD_SKOGESTAD Summary of this function goes here
 %   Detailed explanation goes here
+
+
+import_tools();
 K = dcgain(HO_tf);
 denom_tau = -sort(1./pole(HO_tf));
 num_tau = 1./zero(HO_tf);
@@ -37,7 +40,6 @@ for i = 1:no_zeros
     L = L + abs(num_tau(i));
 end
 
-params.K = K;
-params.L = L;
-params.tau = tau;
+out_FOPTD = FOPTD_system(K,tau,L);
+
 
