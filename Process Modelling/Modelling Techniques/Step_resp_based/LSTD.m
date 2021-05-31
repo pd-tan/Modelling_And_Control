@@ -1,4 +1,6 @@
-function params =  LSTD(recorded_data,number_of_samples)
+function out_FOPTD =  LSTD(recorded_data,number_of_samples)
+import_tools();
+
 %% Basic Setup
 useful_time = recorded_data.time;
 useful_resp = recorded_data.data;
@@ -39,9 +41,11 @@ least_square_y_arr = phi_arr * theta_arr;
 a_1 = theta_arr(1);
 b_1 = theta_arr(3);
 
-params.tau = 1/a_1;
-params.K =b_1/a_1;
-params.L = theta_arr(2) / theta_arr(3);
+tau = 1/a_1;
+K =b_1/a_1;
+L = theta_arr(2) / theta_arr(3);
+
+out_FOPTD = FOPTD_system(K,tau,L);
 
 
 end

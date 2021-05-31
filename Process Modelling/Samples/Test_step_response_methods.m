@@ -47,11 +47,14 @@ plot(sample_step.time,sample_step.data)
 %% Testing Methods
 
 TPM_model = two_point_method(sample_step,2,0.1,0.9);
-log_method_model = log_method(sample_step,2);
+log_model = log_method(sample_step,2);
+LSTD_model = LSTD(sample_step,10);
+area_model = area_method(sample_step,2);
 
 
 
 Modelling_methods = {'Actual';'Two-point method';'log Method';'Area method';'Least Squares Time Domain Method'}
+Models = {sample_system,TPM_model,log_model,area_model,LSTD_model}
 K = [38;43;38;40;49];
 Tau = logical([1;0;1;0;1]);
 L = [71;69;64;67;64];

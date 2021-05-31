@@ -1,4 +1,4 @@
-function params =  two_point_method(recorded_data,steady_state_val)
+function out_FOPTD =  two_point_method(recorded_data,steady_state_val)
     %% Basic Setup
     time = recorded_data.time;
     resp = recorded_data.data;
@@ -22,7 +22,8 @@ function params =  two_point_method(recorded_data,steady_state_val)
     %% Integrating to find A1
     A_1 = trapz(time_cropped,resp_cropped);   
 
-    params.tau = exp(1)*A_1/steady_state_val;
-    params.K = steady_state_val;
-    params.L = T_ar - params.tau;
+    tau = exp(1)*A_1/steady_state_val;
+   K = steady_state_val;
+   L = T_ar - tau;
+    out_FOPTD = FOPTD_system(K,tau,L);
     

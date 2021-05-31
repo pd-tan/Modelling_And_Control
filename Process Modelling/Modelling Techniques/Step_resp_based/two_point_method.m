@@ -29,4 +29,4 @@ end
 K = steady_state_val;
 tau = (time_samples(1) - time_samples(2))/(coeff(1)-coeff(2));
 L = time_samples(1)-coeff(1)*tau;
-out_FOPTD = FOPTD_system(K,tau,L)
+out_FOPTD = FOPTD_system(K,tau,L);
