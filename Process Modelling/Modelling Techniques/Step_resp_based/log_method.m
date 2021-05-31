@@ -18,7 +18,7 @@ yFit = polyval(coefficients , xFit);
 K = steady_state_val;
 tau = -1/coefficients(1);
 L = -coefficients(2)/coefficients(1);
-out_FOPTD = FOPTD_system(K,tau,L)
+out_FOPTD = FOPTD_system(K,tau,L);
 
 log_graph.coeff = coefficients;
 log_graph.time = time;

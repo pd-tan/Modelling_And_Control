@@ -51,12 +51,10 @@ log_model = log_method(sample_step,2);
 LSTD_model = LSTD(sample_step,10);
 area_model = area_method(sample_step,2);
 
+% TODO add able headers
+
+Modelling_methods = {'Actual';'Two-point method';'log Method';'Area method';'Least Squares Time Domain Method'};
+Models = [sample_system.params,TPM_model.params,log_model.params,area_model.params,LSTD_model.params];
 
 
-Modelling_methods = {'Actual';'Two-point method';'log Method';'Area method';'Least Squares Time Domain Method'}
-Models = {sample_system,TPM_model,log_model,area_model,LSTD_model}
-K = [38;43;38;40;49];
-Tau = logical([1;0;1;0;1]);
-L = [71;69;64;67;64];
-
-T = table(Modelling_methods,K,Tau,L)
+T = table(Modelling_methods,[Models.K].',[Models.tau].',[Models.L].')

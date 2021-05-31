@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Test_step_response_methods</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-30"><meta name="DC.source" content="Test_step_response_methods.m"><style type="text/css">
+      --><title>Test_step_response_methods</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-31"><meta name="DC.source" content="Test_step_response_methods.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,43 +67,76 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Clearing Environment</a></li><li><a href="#2">Handles Paths</a></li><li><a href="#3">Get project folder</a></li><li><a href="#4">Add tools folder</a></li><li><a href="#5">Add step_resp based method folder</a></li><li><a href="#6">Create sample FOPTD system</a></li><li><a href="#7">Get step response of sample system</a></li><li><a href="#8">Testing Methods</a></li></ul></div><h2 id="1">Clearing Environment</h2><pre class="codeinput">close <span class="string">all</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Clearing Environment</a></li><li><a href="#2">Handles Paths</a></li><li><a href="#3">Get project folder</a></li><li><a href="#4">Add step_resp based method folder</a></li><li><a href="#5">Add tools folder</a></li><li><a href="#6">Create sample FOPTD system</a></li><li><a href="#7">Get step response of sample system</a></li><li><a href="#8">Testing Methods</a></li></ul></div><h2 id="1">Clearing Environment</h2><pre class="codeinput">close <span class="string">all</span>
 clear;
 clc;
-</pre><pre class="codeoutput error">Error using dbstatus
-Error: File: /home/tan/MATLAB/projects/Modelling&amp;Control/Process Modelling/Samples/Test_step_response_methods.m Line: 37 Column: 19
-Invalid expression. Check for missing or extra characters.
 </pre><h2 id="2">Handles Paths</h2><p>Get current file path</p><pre class="codeinput">file_name = matlab.desktop.editor.getActiveFilename;
 file_path_arr = strsplit(file_name,filesep);
 </pre><h2 id="3">Get project folder</h2><p>Dynamically obtain process modelling folder</p><pre class="codeinput">project_folder = <span class="string">''</span>;
-<span class="keyword">for</span> i = 1:length(file_path_arr)-3
+<span class="keyword">for</span> i = 2:length(file_path_arr)-3
+        project_folder = strcat(project_folder,filesep);
     project_folder = strcat(project_folder,file_path_arr(i));
-    project_folder = strcat(project_folder,filesep);
+
 
 <span class="keyword">end</span>
 project_folder = project_folder{1}
-</pre><h2 id="4">Add tools folder</h2><pre class="codeinput">tools_folder = strcat(project_folder,filesep,<span class="string">'Tools'</span>)
-addpath(tools_folder);
-</pre><h2 id="5">Add step_resp based method folder</h2><pre class="codeinput">step_response_folder = strcat(project_folder,filesep,<span class="string">'Process Modelling'</span>,filesep,<span class="string">'Modelling Techniques'</span>,filesep,<span class="string">'Step_resp_based'</span>)
-addpath(step_response_folder);
-</pre><h2 id="6">Create sample FOPTD system</h2><p>Define system as TODO: Add equation into documentation</p><pre class="codeinput">sample_system.K = 2;
-sample_system.tau = 3;
-sample_system.L =
-sample_system = tf([2],[3 1],<span class="string">"InputDelay"</span>,1)
-</pre><h2 id="7">Get step response of sample system</h2><pre class="codeinput">[sample_step.data,sample_step.time] = step(sample_system);
+</pre><pre class="codeoutput">
+project_folder =
+
+    '/home/tan/MATLAB/projects/Modelling&amp;Control'
+
+</pre><h2 id="4">Add step_resp based method folder</h2><pre class="codeinput">step_response_folder = strcat(project_folder,filesep,<span class="string">'Process Modelling'</span>,filesep,<span class="string">'Modelling Techniques'</span>,filesep,<span class="string">'Step_resp_based'</span>)
+addpath(step_response_folder)
+</pre><pre class="codeoutput">
+step_response_folder =
+
+    '/home/tan/MATLAB/projects/Modelling&amp;Control/Process Modelling/Modelling Techniques/Step_resp_based'
+
+</pre><h2 id="5">Add tools folder</h2><pre class="codeinput">tools_folder = strcat(project_folder,filesep,<span class="string">'Tools'</span>)
+addpath(tools_folder)
+</pre><pre class="codeoutput">
+tools_folder =
+
+    '/home/tan/MATLAB/projects/Modelling&amp;Control/Tools'
+
+</pre><h2 id="6">Create sample FOPTD system</h2><p>Define system as TODO: Add equation into documentation</p><pre class="codeinput">sample_system = FOPTD_system(2,3,1)
+</pre><pre class="codeoutput">
+sample_system = 
+
+  FOPTD_system with properties:
+
+    params: [1&times;1 struct]
+        tf: [1&times;1 tf]
+
+</pre><h2 id="7">Get step response of sample system</h2><pre class="codeinput">[sample_step.data,sample_step.time] = step(sample_system.tf);
 plot(sample_step.time,sample_step.data)
 <span class="comment">% TODO: Add title and scale</span>
-</pre><h2 id="8">Testing Methods</h2><pre class="codeinput">TPM_model = two_point_method(sample_step,2,0.1,0.9);
-log_method_model = log_method(sample_step,2);
+</pre><img vspace="5" hspace="5" src="Test_step_response_methods_01.png" alt=""> <h2 id="8">Testing Methods</h2><pre class="codeinput">TPM_model = two_point_method(sample_step,2,0.1,0.9);
+log_model = log_method(sample_step,2);
+LSTD_model = LSTD(sample_step,10);
+area_model = area_method(sample_step,2);
 
 
 
-Modelling_methods = {<span class="string">'Actual'</span>;<span class="string">'Two-point method'</span>;<span class="string">'log Method'</span>;<span class="string">'Area method'</span>;<span class="string">'Least Squares Time Domain Method'</span>}
-K = [38;43;38;40;49];
-Tau = logical([1;0;1;0;1]);
-L = [71;69;64;67;64];
+Modelling_methods = {<span class="string">'Actual'</span>;<span class="string">'Two-point method'</span>;<span class="string">'log Method'</span>;<span class="string">'Area method'</span>;<span class="string">'Least Squares Time Domain Method'</span>};
+Models = [sample_system.params,TPM_model.params,log_model.params,area_model.params,LSTD_model.params];
 
-T = table(Modelling_methods,K,Tau,L)
+
+T = table(Modelling_methods,[Models.K].',[Models.tau].',[Models.L].')
+</pre><pre class="codeoutput">
+T =
+
+  5&times;4 table
+
+             Modelling_methods              Var2     Var3      Var4  
+    ____________________________________    ____    ______    _______
+
+    {'Actual'                          }     2           3          1
+    {'Two-point method'                }     2           3          1
+    {'log Method'                      }     2      3.0324    0.88402
+    {'Area method'                     }     2      3.0118    0.99467
+    {'Least Squares Time Domain Method'}     2      3.0005    0.99943
+
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Clearing Environment 
@@ -120,51 +153,52 @@ file_path_arr = strsplit(file_name,filesep);
 %% Get project folder
 % Dynamically obtain process modelling folder
 project_folder = '';
-for i = 1:length(file_path_arr)-3
+for i = 2:length(file_path_arr)-3
+        project_folder = strcat(project_folder,filesep);
     project_folder = strcat(project_folder,file_path_arr(i));
-    project_folder = strcat(project_folder,filesep);
+
     
 end
 project_folder = project_folder{1}
-%% Add tools folder
-tools_folder = strcat(project_folder,filesep,'Tools')
-addpath(tools_folder);
+
 %% Add step_resp based method folder
 
 step_response_folder = strcat(project_folder,filesep,'Process Modelling',filesep,'Modelling Techniques',filesep,'Step_resp_based')
-addpath(step_response_folder);
+addpath(step_response_folder)
 
 
+%% Add tools folder
 
+tools_folder = strcat(project_folder,filesep,'Tools')
+addpath(tools_folder)
 
 %% Create sample FOPTD system
 % Define system as TODO: Add equation into documentation
 % 
-sample_system.K = 2;
-sample_system.tau = 3;
-sample_system.L = 
-sample_system = tf([2],[3 1],"InputDelay",1)
+sample_system = FOPTD_system(2,3,1)
+
 
 
 %% Get step response of sample system
 
-[sample_step.data,sample_step.time] = step(sample_system);
+[sample_step.data,sample_step.time] = step(sample_system.tf);
 plot(sample_step.time,sample_step.data)
 % TODO: Add title and scale
 
 %% Testing Methods
 
 TPM_model = two_point_method(sample_step,2,0.1,0.9);
-log_method_model = log_method(sample_step,2);
+log_model = log_method(sample_step,2);
+LSTD_model = LSTD(sample_step,10);
+area_model = area_method(sample_step,2);
 
 
 
-Modelling_methods = {'Actual';'Two-point method';'log Method';'Area method';'Least Squares Time Domain Method'}
-K = [38;43;38;40;49];
-Tau = logical([1;0;1;0;1]);
-L = [71;69;64;67;64];
+Modelling_methods = {'Actual';'Two-point method';'log Method';'Area method';'Least Squares Time Domain Method'};
+Models = [sample_system.params,TPM_model.params,log_model.params,area_model.params,LSTD_model.params];
 
-T = table(Modelling_methods,K,Tau,L)
+
+T = table(Modelling_methods,[Models.K].',[Models.tau].',[Models.L].')
 
 ##### SOURCE END #####
 --></body></html>

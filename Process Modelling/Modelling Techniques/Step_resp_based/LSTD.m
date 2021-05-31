@@ -14,8 +14,8 @@ if cropped_length > total_length
     cropped_length = cropped_length - including_edges_number_samples;
 end
 sample_arr = linspace(0,cropped_length,including_edges_number_samples);
-sample_time = useful_time(sample_arr(2:end))
-useful_resp(sample_arr(2:end))
+sample_time = useful_time(sample_arr(2:end));
+useful_resp(sample_arr(2:end));
 
 
 y_arr = zeros(number_of_samples,1);
