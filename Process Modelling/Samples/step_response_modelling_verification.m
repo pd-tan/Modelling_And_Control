@@ -6,13 +6,13 @@ clc;
 %% Handles Paths
 % Get current file path
 
-file_name = matlab.desktop.editor.getActiveFilename;
+file_name = fileparts(mfilename('fullpath'));
 file_path_arr = strsplit(file_name,filesep);
 
 %% Get project folder
 % Dynamically obtain process modelling folder
 project_folder = '';
-for i = 2:length(file_path_arr)-3
+for i = 2:length(file_path_arr)-2
         project_folder = strcat(project_folder,filesep);
     project_folder = strcat(project_folder,file_path_arr(i));
 

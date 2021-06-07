@@ -6,7 +6,7 @@ clc;
 %% Handles Paths
 % Get current file path
 
-file_name = matlab.desktop.editor.getActiveFilename;
+file_name = fileparts(mfilename('fullpath'));
 file_path_arr = strsplit(file_name,filesep);
 
 %% Get project folder

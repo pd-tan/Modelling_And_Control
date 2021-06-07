@@ -6,13 +6,13 @@ clc;
 %% Handles Paths
 % Get current file path
 
-file_name = matlab.desktop.editor.getActiveFilename;
+file_name = fileparts(mfilename('fullpath'));
 file_path_arr = strsplit(file_name,filesep);
 
 %% Get project folder
 % Dynamically obtain process modelling folder
 project_folder = '';
-for i = 2:length(file_path_arr)-3
+for i = 2:length(file_path_arr)-2
         project_folder = strcat(project_folder,filesep);
     project_folder = strcat(project_folder,file_path_arr(i));
 
@@ -39,9 +39,8 @@ addpath(model_simpliflication_folder)
 
 
 %% Higher Order System
-
-
-
+test_sysmtem = HO_system(tf([0.0925],[1 0.0079])*tf([1 -0.339],[1,0.238])*tf([1 0.0218],[1 0.0982])*tf([1],[1 0.327]))
+test_sysmtem.generate_skogestads_FOPTD();
 %% Create sample FOPTD system
 % Define system as TODO: Add equation into documentation
 % 
